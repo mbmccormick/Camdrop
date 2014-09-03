@@ -103,12 +103,12 @@ namespace Camdrop.API
 
             Stream stream = response.GetResponseStream();
             UTF8Encoding encoding = new UTF8Encoding();
-            StreamReader sr = new StreamReader(stream, encoding);
+            BinaryReader br = new BinaryReader(stream, encoding);
 
-            string encoded = sr.ReadToEnd();
-            byte[] data = Convert.FromBase64String(encoded);
-
-            sr.Dispose();
+            int length = Convert.ToInt32(response.ContentLength);
+            byte[] data = br.ReadBytes(length);
+                
+            br.Dispose();
 
             stream.Dispose();
 

@@ -6,9 +6,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#FFFFFFFF"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <StackPanel x:Name="LayoutRoot" Margin="22,22,22,22">
 
-    </Grid>
+        <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+
+        <TextBlock Text="Select a camera from the list below" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
+
+        <ListView x:Name="lstCameras" ItemsSource="{Binding VisibleCameras}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Tapped="StackPanel_Tapped">
+                        <TextBlock Text="{Binding title}" FontSize="{StaticResource TextStyleExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+                        <TextBlock Text="{Binding location}" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="Normal" Foreground="#FF000000" Margin="0,0,0,6" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackPanel>
 </Page>

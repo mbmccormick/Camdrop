@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -15,27 +15,23 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace Camdrop
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class CameraPage : Page
     {
-        public static ObservableCollection<Camera> VisibleCameras { get; set; }
+        public string UUID;
 
-        public MainPage()
+        public CameraPage()
         {
             this.InitializeComponent();
-
-            this.NavigationCacheMode = NavigationCacheMode.Required;
-
-            VisibleCameras = new ObservableCollection<Camera>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (Frame.CanGoBack)
-                Frame.BackStack.RemoveAt(0);
+            UUID = e.Parameter as string;
 
             RenderStatusBar();
 
@@ -68,45 +64,37 @@ namespace Camdrop
             await statusBar.ProgressIndicator.ShowAsync();
         }
 
-        private async void LoadData()
+        private void LoadData()
+        {
+            DispatcherTimer dt = new DispatcherTimer();
+            dt.Interval = new TimeSpan(0, 0, 0, 2, 0);
+            dt.Tick += DispatchTimer_Tick;
+
+            dt.Start();
+        }
+
+        private async void DispatchTimer_Tick(object sender, object e)
         {
             ShowStatusBar();
 
-            await App.DropcamClient.CamerasGetVisible((result) =>
+            await App.DropcamClient.CamerasGetImage((result) =>
             {
                 Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     HideStatusBar();
 
-                    if (result.status == 0)
-                    {
-                        // request succeeded
+                    var stream = new InMemoryRandomAccessStream();
+                    stream.WriteAsync(result.AsBuffer());
+                    stream.Seek(0);
 
-                        VisibleCameras.Clear();
+                    var image = new BitmapImage();
+                    image.SetSource(stream);
 
-                        foreach (Camera item in result.items)
-                        {
-                            VisibleCameras.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        // request failed
-
-                        MessageDialog dialog = new MessageDialog(result.status_detail, "Request Failed");
-                        dialog.ShowAsync();
-                    }
+                    this.imgCameraFeed.Source = image;
                 });
-            });
+            }, UUID);
 
             HideStatusBar();
-        }
-
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Camera item = ((FrameworkElement)sender).DataContext as Camera;
-
-            Frame.Navigate(typeof(CameraPage), item.uuid);
         }
     }
 }

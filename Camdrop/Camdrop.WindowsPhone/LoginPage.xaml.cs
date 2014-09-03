@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -19,24 +19,15 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Camdrop
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class LoginPage : Page
     {
-        public static ObservableCollection<Camera> VisibleCameras { get; set; }
-
-        public MainPage()
+        public LoginPage()
         {
             this.InitializeComponent();
-
-            this.NavigationCacheMode = NavigationCacheMode.Required;
-
-            VisibleCameras = new ObservableCollection<Camera>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (Frame.CanGoBack)
-                Frame.BackStack.RemoveAt(0);
-
             RenderStatusBar();
 
             LoadData();
@@ -72,7 +63,30 @@ namespace Camdrop
         {
             ShowStatusBar();
 
-            await App.DropcamClient.CamerasGetVisible((result) =>
+            if (ApplicationData.Current.RoamingSettings.Values.ContainsKey("Username"))
+            {
+                this.txtUsername.Text = ApplicationData.Current.RoamingSettings.Values["Username"] as string;
+            }
+
+            if (ApplicationData.Current.RoamingSettings.Values.ContainsKey("Password"))
+            {
+                this.txtPassword.Password = ApplicationData.Current.RoamingSettings.Values["Password"] as string;
+            }
+
+            if (this.txtUsername.Text.Length > 0 &&
+                this.txtPassword.Password.Length > 0)
+            {
+                btnLogin_Click(this, null);
+            }
+
+            HideStatusBar();
+        }
+
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            ShowStatusBar();
+
+            await App.DropcamClient.LoginLogin((result) =>
             {
                 Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
@@ -80,33 +94,31 @@ namespace Camdrop
 
                     if (result.status == 0)
                     {
-                        // request succeeded
+                        // login succeeded
 
-                        VisibleCameras.Clear();
+                        ApplicationData.Current.RoamingSettings.Values["Username"] = this.txtUsername.Text;
+                        ApplicationData.Current.RoamingSettings.Values["Password"] = this.txtPassword.Password;
 
-                        foreach (Camera item in result.items)
-                        {
-                            VisibleCameras.Add(item);
-                        }
+                        Frame.Navigate(typeof(MainPage));
                     }
                     else
                     {
-                        // request failed
+                        // login failed
 
-                        MessageDialog dialog = new MessageDialog(result.status_detail, "Request Failed");
+                        ApplicationData.Current.RoamingSettings.Values.Remove("Username");
+                        ApplicationData.Current.RoamingSettings.Values.Remove("Password");
+
+                        MessageDialog dialog = new MessageDialog(result.status_detail, "Login Failed");
                         dialog.ShowAsync();
                     }
                 });
-            });
-
-            HideStatusBar();
+            }, this.txtUsername.Text, this.txtPassword.Password);
         }
 
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            Camera item = ((FrameworkElement)sender).DataContext as Camera;
-
-            Frame.Navigate(typeof(CameraPage), item.uuid);
+            this.txtUsername.Text = "";
+            this.txtPassword.Password = "";
         }
     }
 }
