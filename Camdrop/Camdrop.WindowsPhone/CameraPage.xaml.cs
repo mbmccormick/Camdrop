@@ -79,14 +79,16 @@ namespace Camdrop
         {
             ShowStatusBar();
 
-            await App.DropcamClient.CamerasGetImage((result) =>
+            await App.DropcamClient.CamerasGetImage(async (result) =>
             {
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
                     HideStatusBar();
 
                     var stream = new InMemoryRandomAccessStream();
-                    stream.WriteAsync(result.AsBuffer());
+                    
+                    await stream.WriteAsync(result.AsBuffer());
+
                     stream.Seek(0);
 
                     var image = new BitmapImage();

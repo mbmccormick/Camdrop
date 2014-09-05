@@ -18,10 +18,21 @@
         <ListView x:Name="lstCameras" ItemsSource="{Binding VisibleCameras}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Tapped="StackPanel_Tapped">
-                        <TextBlock Text="{Binding title}" FontSize="{StaticResource TextStyleExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-                        <TextBlock Text="{Binding location}" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="Normal" Foreground="#FF000000" Margin="0,0,0,6" />
-                    </StackPanel>
+                    <Grid Tapped="ItemContent_Tapped">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Thumbnail}" Stretch="UniformToFill" HorizontalAlignment="Center" Width="75" Margin="0,0,12,0" />
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Camera.title}" FontSize="{StaticResource TextStyleExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Camera.location}" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="Normal" Foreground="#FF000000" Margin="0,0,0,6" />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

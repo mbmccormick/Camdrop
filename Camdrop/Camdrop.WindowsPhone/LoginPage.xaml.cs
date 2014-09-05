@@ -92,9 +92,9 @@ namespace Camdrop
             this.txtUsername.IsReadOnly = true;
             this.txtPassword.IsEnabled = false;
 
-            await App.DropcamClient.LoginLogin((result) =>
+            await App.DropcamClient.LoginLogin(async (result) =>
             {
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
                     HideStatusBar();
 
@@ -121,7 +121,7 @@ namespace Camdrop
                         this.txtPassword.IsEnabled = true;
 
                         MessageDialog dialog = new MessageDialog(result.status_detail, "Login Failed");
-                        dialog.ShowAsync();
+                        await dialog.ShowAsync();
                     }
                 });
             }, this.txtUsername.Text, this.txtPassword.Password);
