@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -27,16 +28,13 @@ namespace Camdrop
         {
             this.InitializeComponent();
 
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
 
             VisibleCameras = new ObservableCollection<Camera>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (Frame.CanGoBack)
-                Frame.BackStack.RemoveAt(0);
-
             RenderStatusBar();
 
             LoadData();

@@ -15,10 +15,10 @@
         <TextBlock Text="Login to your Dropcam account" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
 
         <TextBlock Text="Username" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-        <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
+        <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
 
         <TextBlock Text="Password" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-        <PasswordBox x:Name="txtPassword" FontSize="{StaticResource TextStyleExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
+        <PasswordBox x:Name="txtPassword" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
 
         <Grid Margin="-3,0,-3,0">
             <Grid.ColumnDefinitions>

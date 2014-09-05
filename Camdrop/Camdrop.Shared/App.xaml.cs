@@ -17,6 +17,10 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
+#if WINDOWS_PHONE_APP
+using Windows.Phone.UI.Input;
+#endif
+
 namespace Camdrop
 {
     public sealed partial class App : Application
@@ -31,6 +35,10 @@ namespace Camdrop
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+#if WINDOWS_PHONE_APP
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+#endif
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
@@ -106,6 +114,19 @@ namespace Camdrop
             var rootFrame = sender as Frame;
             rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+        }
+#endif
+
+#if WINDOWS_PHONE_APP
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame != null && rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
         }
 #endif
 

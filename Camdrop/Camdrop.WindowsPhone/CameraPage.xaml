@@ -9,9 +9,13 @@
     Background="#FF000000"
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <StackPanel x:Name="LayoutRoot" Margin="0,-32,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+    <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
 
-        <Image x:Name="imgCameraFeed" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0" />
+        <Image x:Name="imgCameraFeed" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+
+        <StackPanel Background="#88000000" VerticalAlignment="Bottom" Margin="0,0,0,0">
+            <TextBlock x:Name="txtTimestamp" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF00B0ED" HorizontalAlignment="Center" Margin="5,5,5,5" />
+        </StackPanel>
         
-    </StackPanel>
+    </Grid>
 </Page>

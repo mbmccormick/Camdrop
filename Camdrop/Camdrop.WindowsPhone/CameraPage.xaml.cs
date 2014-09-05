@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -27,6 +28,8 @@ namespace Camdrop
         public CameraPage()
         {
             this.InitializeComponent();
+
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -43,25 +46,24 @@ namespace Camdrop
             var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
             statusBar.ForegroundColor = Color.FromArgb(255, 0, 176, 237);
             statusBar.BackgroundOpacity = 0.0;
-            statusBar.ProgressIndicator.ProgressValue = 0.0;
-
-            await statusBar.ProgressIndicator.ShowAsync();
+            
+            await statusBar.HideAsync();
         }
 
         private async void ShowStatusBar()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ProgressIndicator.ProgressValue = null;
+            //var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+            //statusBar.ProgressIndicator.ProgressValue = null;
 
-            await statusBar.ProgressIndicator.ShowAsync();
+            //await statusBar.ProgressIndicator.ShowAsync();
         }
 
         private async void HideStatusBar()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ProgressIndicator.ProgressValue = 0.0;
+            //var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+            //statusBar.ProgressIndicator.ProgressValue = 0.0;
 
-            await statusBar.ProgressIndicator.ShowAsync();
+            //await statusBar.ProgressIndicator.ShowAsync();
         }
 
         private void LoadData()
@@ -90,9 +92,12 @@ namespace Camdrop
                     var image = new BitmapImage();
                     image.SetSource(stream);
 
+                    stream.Dispose();
+                    
                     this.imgCameraFeed.Source = image;
+                    this.txtTimestamp.Text = DateTime.Now.ToString();
                 });
-            }, UUID);
+            }, UUID, 1280);
 
             HideStatusBar();
         }

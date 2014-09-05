@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -24,6 +25,8 @@ namespace Camdrop
         public LoginPage()
         {
             this.InitializeComponent();
+
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -86,6 +89,9 @@ namespace Camdrop
         {
             ShowStatusBar();
 
+            this.txtUsername.IsReadOnly = true;
+            this.txtPassword.IsEnabled = false;
+
             await App.DropcamClient.LoginLogin((result) =>
             {
                 Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
@@ -100,6 +106,9 @@ namespace Camdrop
                         ApplicationData.Current.RoamingSettings.Values["Password"] = this.txtPassword.Password;
 
                         Frame.Navigate(typeof(MainPage));
+
+                        if (Frame.CanGoBack)
+                            Frame.BackStack.Remove(Frame.BackStack.LastOrDefault());
                     }
                     else
                     {
@@ -107,6 +116,9 @@ namespace Camdrop
 
                         ApplicationData.Current.RoamingSettings.Values.Remove("Username");
                         ApplicationData.Current.RoamingSettings.Values.Remove("Password");
+
+                        this.txtUsername.IsReadOnly = false;
+                        this.txtPassword.IsEnabled = true;
 
                         MessageDialog dialog = new MessageDialog(result.status_detail, "Login Failed");
                         dialog.ShowAsync();
