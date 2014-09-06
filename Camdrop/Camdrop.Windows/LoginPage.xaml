@@ -5,9 +5,32 @@
     xmlns:local="using:Camdrop"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#FFFFFFFF">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel x:Name="LayoutRoot" Margin="22,22,22,22">
 
-    </Grid>
+        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+
+        <TextBlock Text="Camdrop" FontSize="36" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+
+        <TextBlock Text="Login to your Dropcam account" FontSize="12" Foreground="#FF000000" Margin="0,12,0,48" />
+
+        <TextBlock Text="Username" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+        <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="24" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
+
+        <TextBlock Text="Password" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+        <PasswordBox x:Name="txtPassword" FontSize="24" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
+
+        <Grid Margin="-3,0,-3,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="24" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
+            <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="24" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
+        </Grid>
+
+    </StackPanel>
 </Page>

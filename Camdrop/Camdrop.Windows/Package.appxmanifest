@@ -1,38 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-
-  <Identity Name="46a9d50f-7d07-4a50-8c7c-54a9437f1b5e"
-            Publisher="CN=mattmc"
-            Version="1.0.0.0" />
-
+  <Identity Name="46a9d50f-7d07-4a50-8c7c-54a9437f1b5e" Publisher="CN=mattmc" Version="1.0.0.0" />
   <Properties>
     <DisplayName>Camdrop.Windows</DisplayName>
     <PublisherDisplayName>mattmc</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\storelogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.3.0</OSMinVersion>
     <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="Camdrop.Windows.App">
-        <m2:VisualElements
-            DisplayName="Camdrop.Windows"
-            Square150x150Logo="Assets\Logo.png"
-            Square30x30Logo="Assets\SmallLogo.png"
-            Description="Camdrop.Windows"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <m2:SplashScreen Image="Assets\SplashScreen.png" />
-        </m2:VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Camdrop.Windows.App">
+      <m2:VisualElements DisplayName="Camdrop" Square150x150Logo="Assets\logo.png" Square30x30Logo="Assets\smalllogo.png" Description="Camdrop.Windows" ForegroundText="light" BackgroundColor="#00B0ED">
+        <m2:DefaultTile ShortName="Camdrop" Wide310x150Logo="Assets\widelogo.png" Square310x310Logo="Assets\largelogo.png" Square70x70Logo="Assets\square71x71logo.png">
+          <m2:ShowNameOnTiles>
+            <m2:ShowOn Tile="square150x150Logo" />
+            <m2:ShowOn Tile="wide310x150Logo" />
+            <m2:ShowOn Tile="square310x310Logo" />
+          </m2:ShowNameOnTiles>
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\splashscreen.png" BackgroundColor="#00B0ED" />
+      </m2:VisualElements>
     </Application>
   </Applications>
   <Capabilities>
