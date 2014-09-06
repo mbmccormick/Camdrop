@@ -45,8 +45,9 @@ namespace Camdrop
         private async void RenderStatusBar()
         {
             var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ForegroundColor = Color.FromArgb(255, 0, 176, 237);
-            statusBar.BackgroundOpacity = 0.0;
+            statusBar.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
+            statusBar.BackgroundColor = Color.FromArgb(255, 0, 176, 237);
+            statusBar.BackgroundOpacity = 1.0;
             statusBar.ProgressIndicator.ProgressValue = 0.0;
 
             await statusBar.ProgressIndicator.ShowAsync();
@@ -86,6 +87,9 @@ namespace Camdrop
 
                         foreach (Camera item in result.items)
                         {
+                            if (String.IsNullOrEmpty(item.location) == true)
+                                item.location = "(location unknown)";
+
                             CameraItem viewModel = new CameraItem();
                             viewModel.Camera = item;
 
@@ -131,6 +135,10 @@ namespace Camdrop
             CameraItem item = ((FrameworkElement)sender).DataContext as CameraItem;
 
             Frame.Navigate(typeof(CameraPage), item.Camera.uuid);
+        }
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            LoadData();
         }
     }
 

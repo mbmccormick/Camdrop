@@ -8,19 +8,35 @@
     mc:Ignorable="d"
     Background="#FFFFFFFF">
 
-    <StackPanel x:Name="LayoutRoot" Margin="22,22,22,22">
+    <Grid x:Name="LayoutRoot" Margin="22,22,22,12">
 
-        <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+        <StackPanel>
+            <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+
+            <TextBlock Text="Login to your Dropcam account" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
+
+            <TextBlock Text="Username" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+            <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
+
+            <TextBlock Text="Password" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+            <PasswordBox x:Name="txtPassword" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
+
+            <RichTextBlock FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
+                <Paragraph LineHeight="24">
+                    Trouble logging in?
+                    <Hyperlink NavigateUri="https://www.dropcam.com/forgot_password" Foreground="#FF00B0ED">Reset your password.</Hyperlink>
+                </Paragraph>
+            </RichTextBlock>
+
+            <RichTextBlock FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
+                <Paragraph LineHeight="24">
+                    Don't have a Dropcam account?
+                    <Hyperlink NavigateUri="https://www.dropcam.com/signup" Foreground="#FF00B0ED">Sign up for a free account.</Hyperlink>
+                </Paragraph>
+            </RichTextBlock>
+        </StackPanel>
         
-        <TextBlock Text="Login to your Dropcam account" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
-
-        <TextBlock Text="Username" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-        <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
-
-        <TextBlock Text="Password" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-        <PasswordBox x:Name="txtPassword" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
-
-        <Grid Margin="-3,0,-3,0">
+        <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -29,6 +45,6 @@
             <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="{StaticResource TextStyleLargeFontSize}" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
             <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="{StaticResource TextStyleLargeFontSize}" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
         </Grid>
-
-    </StackPanel>
+        
+    </Grid>
 </Page>

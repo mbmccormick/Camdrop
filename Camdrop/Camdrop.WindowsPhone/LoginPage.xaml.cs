@@ -39,8 +39,9 @@ namespace Camdrop
         private async void RenderStatusBar()
         {
             var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ForegroundColor = Color.FromArgb(255, 0, 176, 237);
-            statusBar.BackgroundOpacity = 0.0;
+            statusBar.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
+            statusBar.BackgroundColor = Color.FromArgb(255, 0, 176, 237);
+            statusBar.BackgroundOpacity = 1.0;
             statusBar.ProgressIndicator.ProgressValue = 0.0;
 
             await statusBar.ProgressIndicator.ShowAsync();
@@ -89,8 +90,8 @@ namespace Camdrop
         {
             ShowStatusBar();
 
-            this.txtUsername.IsReadOnly = true;
-            this.txtPassword.IsEnabled = false;
+            this.txtUsername.IsTapEnabled = false;
+            this.txtPassword.IsTapEnabled = false;
 
             await App.DropcamClient.LoginLogin(async (result) =>
             {
@@ -117,8 +118,8 @@ namespace Camdrop
                         ApplicationData.Current.RoamingSettings.Values.Remove("Username");
                         ApplicationData.Current.RoamingSettings.Values.Remove("Password");
 
-                        this.txtUsername.IsReadOnly = false;
-                        this.txtPassword.IsEnabled = true;
+                        this.txtUsername.IsTapEnabled = true;
+                        this.txtPassword.IsTapEnabled = true;
 
                         MessageDialog dialog = new MessageDialog(result.status_detail, "Login Failed");
                         await dialog.ShowAsync();

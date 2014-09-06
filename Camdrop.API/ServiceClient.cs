@@ -89,6 +89,28 @@ namespace Camdrop.API
             callback(data);
         }
 
+        public async Task CamerasGetDemo(Action<CamerasGetVisibleResponse> callback)
+        {
+            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/cameras.get_demo") as HttpWebRequest;
+            request.Headers["Cookie"] = "website_2=" + CurrentSession.session_token;
+
+            var response = await request.GetResponseAsync().ConfigureAwait(false);
+
+            Stream stream = response.GetResponseStream();
+            UTF8Encoding encoding = new UTF8Encoding();
+            StreamReader sr = new StreamReader(stream, encoding);
+
+            JsonTextReader tr = new JsonTextReader(sr);
+            CamerasGetVisibleResponse data = new JsonSerializer().Deserialize<CamerasGetVisibleResponse>(tr);
+
+            tr.Close();
+            sr.Dispose();
+
+            stream.Dispose();
+
+            callback(data);
+        }
+
         public async Task CamerasGetImage(Action<byte[]> callback, string uuid)
         {
             await CamerasGetImage(callback, uuid, 1024);
@@ -96,7 +118,7 @@ namespace Camdrop.API
 
         public async Task CamerasGetImage(Action<byte[]> callback, string uuid, int width)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/cameras.get_image?uuid=" + uuid + "&width=" + width) as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/cameras.get_image?uuid=" + uuid + "&width=" + width + "&ticks=" + DateTime.Now.Ticks) as HttpWebRequest;
             request.Headers["Cookie"] = "website_2=" + CurrentSession.session_token;
 
             var response = await request.GetResponseAsync().ConfigureAwait(false);

@@ -69,7 +69,7 @@ namespace Camdrop
         private void LoadData()
         {
             DispatcherTimer dt = new DispatcherTimer();
-            dt.Interval = new TimeSpan(0, 0, 0, 2, 0);
+            dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
             dt.Tick += DispatchTimer_Tick;
 
             dt.Start();
@@ -95,7 +95,7 @@ namespace Camdrop
                     image.SetSource(stream);
 
                     stream.Dispose();
-                    
+
                     this.imgCameraFeed.Source = image;
                     this.txtTimestamp.Text = DateTime.Now.ToString();
                 });
