@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,26 +15,24 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace Camdrop
 {
     public sealed partial class MainPage : Page
     {
-        public static ObservableCollection<Camera> VisibleCameras { get; set; }
+        public static ObservableCollection<CameraItem> VisibleCameras { get; set; }
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            VisibleCameras = new ObservableCollection<Camera>();
+            VisibleCameras = new ObservableCollection<CameraItem>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (Frame.CanGoBack)
-                Frame.BackStack.RemoveAt(0);
-
             RenderStatusBar();
 
             LoadData();
@@ -58,9 +57,9 @@ namespace Camdrop
         {
             ShowStatusBar();
 
-            await App.DropcamClient.CamerasGetVisible((result) =>
+            await App.DropcamClient.CamerasGetVisible(async (result) =>
             {
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
                     HideStatusBar();
 
@@ -72,7 +71,34 @@ namespace Camdrop
 
                         foreach (Camera item in result.items)
                         {
-                            VisibleCameras.Add(item);
+                            if (String.IsNullOrEmpty(item.location) == true)
+                                item.location = "(location unknown)";
+
+                            CameraItem viewModel = new CameraItem();
+                            viewModel.Camera = item;
+
+                            await App.DropcamClient.CamerasGetImage(async (result2) =>
+                            {
+                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                                {
+                                    HideStatusBar();
+
+                                    var stream = new InMemoryRandomAccessStream();
+
+                                    await stream.WriteAsync(result2.AsBuffer());
+
+                                    stream.Seek(0);
+
+                                    var image = new BitmapImage();
+                                    image.SetSource(stream);
+
+                                    stream.Dispose();
+
+                                    viewModel.Thumbnail = image;
+                                });
+                            }, item.uuid, 300);
+
+                            VisibleCameras.Add(viewModel);
                         }
                     }
                     else
@@ -80,7 +106,7 @@ namespace Camdrop
                         // request failed
 
                         MessageDialog dialog = new MessageDialog(result.status_detail, "Request Failed");
-                        dialog.ShowAsync();
+                        await dialog.ShowAsync();
                     }
                 });
             });
@@ -88,11 +114,21 @@ namespace Camdrop
             HideStatusBar();
         }
 
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ItemContent_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Camera item = ((FrameworkElement)sender).DataContext as Camera;
+            CameraItem item = ((FrameworkElement)sender).DataContext as CameraItem;
 
-            // Frame.Navigate(typeof(CameraPage), item.uuid);
+            Frame.Navigate(typeof(CameraPage), item.Camera.uuid);
         }
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            LoadData();
+        }
+    }
+
+    public class CameraItem
+    {
+        public Camera Camera { get; set; }
+        public BitmapImage Thumbnail { get; set; }
     }
 }

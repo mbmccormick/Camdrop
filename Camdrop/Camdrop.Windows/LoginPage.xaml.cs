@@ -73,9 +73,12 @@ namespace Camdrop
         {
             ShowStatusBar();
 
-            await App.DropcamClient.LoginLogin((result) =>
+            this.txtUsername.IsTapEnabled = false;
+            this.txtPassword.IsTapEnabled = false;
+
+            await App.DropcamClient.LoginLogin(async (result) =>
             {
-                Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
                     HideStatusBar();
 
@@ -87,6 +90,9 @@ namespace Camdrop
                         ApplicationData.Current.RoamingSettings.Values["Password"] = this.txtPassword.Password;
 
                         Frame.Navigate(typeof(MainPage));
+
+                        if (Frame.CanGoBack)
+                            Frame.BackStack.Remove(Frame.BackStack.LastOrDefault());
                     }
                     else
                     {
@@ -95,8 +101,11 @@ namespace Camdrop
                         ApplicationData.Current.RoamingSettings.Values.Remove("Username");
                         ApplicationData.Current.RoamingSettings.Values.Remove("Password");
 
+                        this.txtUsername.IsTapEnabled = true;
+                        this.txtPassword.IsTapEnabled = true;
+
                         MessageDialog dialog = new MessageDialog(result.status_detail, "Login Failed");
-                        dialog.ShowAsync();
+                        await dialog.ShowAsync();
                     }
                 });
             }, this.txtUsername.Text, this.txtPassword.Password);

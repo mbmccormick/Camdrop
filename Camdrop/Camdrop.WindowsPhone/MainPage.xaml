@@ -12,7 +12,6 @@
     <Grid x:Name="LayoutRoot" Margin="22,22,22,12" VerticalAlignment="Stretch">
 
         <StackPanel>
-
             <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
 
             <TextBlock Text="Select a camera from the list below" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
@@ -45,7 +44,6 @@
                     <Hyperlink NavigateUri="https://www.dropcam.com/live-demos" Foreground="#FF00B0ED">Subscribe to a public Dropcam feed.</Hyperlink>
                 </Paragraph>
             </RichTextBlock>
-
         </StackPanel>
 
         <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
