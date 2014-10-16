@@ -11,6 +11,8 @@
 
     <Grid x:Name="LayoutRoot" Margin="22,22,22,12" VerticalAlignment="Stretch">
 
+        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+
         <StackPanel>
             <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
 
@@ -52,7 +54,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnRefresh" Grid.Column="0" Grid.ColumnSpan="2" Content="Refresh" FontSize="{StaticResource TextStyleLargeFontSize}" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnRefresh_Click" />
+            <Button x:Name="btnRefresh" Grid.Column="0" Grid.ColumnSpan="2" Content="Refresh" FontSize="{StaticResource TextStyleLargeFontSize}" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnRefresh_Click" />
         </Grid>
 
     </Grid>

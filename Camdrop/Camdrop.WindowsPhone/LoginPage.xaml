@@ -10,6 +10,8 @@
 
     <Grid x:Name="LayoutRoot" Margin="22,22,22,12">
 
+        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+
         <StackPanel>
             <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
 
@@ -42,8 +44,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="{StaticResource TextStyleLargeFontSize}" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
-            <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="{StaticResource TextStyleLargeFontSize}" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
+            <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="{StaticResource TextStyleLargeFontSize}" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
+            <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="{StaticResource TextStyleLargeFontSize}" Foreground="#FFFFFFFF" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
         </Grid>
         
     </Grid>

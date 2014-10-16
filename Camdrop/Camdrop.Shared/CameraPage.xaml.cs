@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Camdrop.API;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
 using Windows.Storage.Streams;
 using Windows.UI;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -29,7 +18,31 @@ namespace Camdrop
         {
             this.InitializeComponent();
 
+            this.SizeChanged += Frame_SizeChanged;
+
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
+        }
+
+        private void Frame_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+#if WINDOWS_APP
+            if (e.NewSize.Width <= 800)
+            {
+                this.stkCamera.VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Center;
+
+                this.txtTimestampBanner.Margin = new Thickness(0, -84, 0, 0);
+                this.txtTimestamp.FontSize = 24;
+                this.txtTimestamp.Margin = new Thickness(6, 6, 6, 6);
+            }
+            else
+            {
+                this.stkCamera.VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Top;
+
+                this.txtTimestampBanner.Margin = new Thickness(0, -84, 0, 0);
+                this.txtTimestamp.FontSize = 48;
+                this.txtTimestamp.Margin = new Thickness(12, 12, 12, 12);
+            }
+#endif
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,29 +54,19 @@ namespace Camdrop
             LoadData();
         }
 
-        private async void RenderStatusBar()
+        private void RenderStatusBar()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ForegroundColor = Color.FromArgb(255, 0, 176, 237);
-            statusBar.BackgroundOpacity = 0.0;
-            
-            await statusBar.HideAsync();
+            this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        private async void ShowStatusBar()
+        private void ShowStatusBar()
         {
-            //var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            //statusBar.ProgressIndicator.ProgressValue = null;
-
-            //await statusBar.ProgressIndicator.ShowAsync();
+            this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
-        private async void HideStatusBar()
+        private void HideStatusBar()
         {
-            //var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            //statusBar.ProgressIndicator.ProgressValue = 0.0;
-
-            //await statusBar.ProgressIndicator.ShowAsync();
+            this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private void LoadData()
@@ -102,6 +105,12 @@ namespace Camdrop
             }, UUID, 1280);
 
             HideStatusBar();
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
         }
     }
 }

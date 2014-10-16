@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Camdrop.API;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Camdrop
@@ -36,31 +26,19 @@ namespace Camdrop
             LoadData();
         }
 
-        private async void RenderStatusBar()
+        private void RenderStatusBar()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
-            statusBar.BackgroundColor = Color.FromArgb(255, 0, 176, 237);
-            statusBar.BackgroundOpacity = 1.0;
-            statusBar.ProgressIndicator.ProgressValue = 0.0;
-
-            await statusBar.ProgressIndicator.ShowAsync();
+            this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        private async void ShowStatusBar()
+        private void ShowStatusBar()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ProgressIndicator.ProgressValue = null;
-
-            await statusBar.ProgressIndicator.ShowAsync();
+            this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
-        private async void HideStatusBar()
+        private void HideStatusBar()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-            statusBar.ProgressIndicator.ProgressValue = 0.0;
-
-            await statusBar.ProgressIndicator.ShowAsync();
+            this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void LoadData()

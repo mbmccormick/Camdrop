@@ -7,45 +7,47 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Margin="22,22,22,12" Background="#FFFFFFFF">
+    <Grid Background="#FFFFFFFF">
+        <Grid x:Name="LayoutRoot" Margin="66,66,66,56">
 
-        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+            <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
 
-        <StackPanel>
-            <TextBlock Text="Camdrop" FontSize="48" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+            <StackPanel>
+                <TextBlock Text="Camdrop" FontSize="60" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
 
-            <TextBlock Text="Login to your Dropcam account" FontSize="18" Foreground="#FF000000" Margin="0,12,0,48" />
+                <TextBlock Text="Login to your Dropcam account" FontSize="24" Foreground="#FF000000" Margin="0,24,0,60" />
 
-            <TextBlock Text="Username" FontSize="18" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-            <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="18" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
+                <TextBlock Text="Username" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+                <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="24" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
 
-            <TextBlock Text="Password" FontSize="18" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-            <PasswordBox x:Name="txtPassword" FontSize="18" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
+                <TextBlock Text="Password" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+                <PasswordBox x:Name="txtPassword" FontSize="24" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
 
-            <RichTextBlock FontSize="18" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
-                <Paragraph LineHeight="24">
-                    Trouble logging in?
-                    <Hyperlink NavigateUri="https://www.dropcam.com/forgot_password" Foreground="#FF00B0ED">Reset your password.</Hyperlink>
-                </Paragraph>
-            </RichTextBlock>
+                <RichTextBlock FontSize="24" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
+                    <Paragraph LineHeight="24">
+                        Trouble logging in?
+                        <Hyperlink NavigateUri="https://www.dropcam.com/forgot_password" Foreground="#FF00B0ED">Reset your password.</Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
 
-            <RichTextBlock FontSize="18" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
-                <Paragraph LineHeight="24">
-                    Don't have a Dropcam account?
-                    <Hyperlink NavigateUri="https://www.dropcam.com/signup" Foreground="#FF00B0ED">Sign up for a free account.</Hyperlink>
-                </Paragraph>
-            </RichTextBlock>
-        </StackPanel>
+                <RichTextBlock FontSize="24" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
+                    <Paragraph LineHeight="24">
+                        Don't have a Dropcam account?
+                        <Hyperlink NavigateUri="https://www.dropcam.com/signup" Foreground="#FF00B0ED">Sign up for a free account.</Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
+            </StackPanel>
 
-        <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="18" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
-            <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="18" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
+                <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="24" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
+                <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="24" Foreground="#FFFFFFFF" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
+            </Grid>
+
         </Grid>
-
     </Grid>
 </Page>

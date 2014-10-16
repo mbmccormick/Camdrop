@@ -8,53 +8,55 @@
     mc:Ignorable="d"
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid x:Name="LayoutRoot" Margin="22,22,22,12" Background="#FFFFFFFF">
+    <Grid Background="#FFFFFFFF">
+        <Grid x:Name="LayoutRoot" Margin="66,66,66,56" Background="#FFFFFFFF">
 
-        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+            <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
 
-        <StackPanel>
-            <TextBlock Text="Camdrop" FontSize="48" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+            <StackPanel>
+                <TextBlock Text="Camdrop" FontSize="60" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
 
-            <TextBlock Text="Select a camera from the list below" FontSize="18" Foreground="#FF000000" Margin="0,12,0,48" />
+                <TextBlock Text="Select a camera from the list below" FontSize="24" Foreground="#FF000000" Margin="0,24,0,60" />
 
-            <ListView x:Name="lstCameras" ItemsSource="{Binding VisibleCameras}" Margin="0,0,0,36">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,0,0,24" Tapped="ItemContent_Tapped">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                <ListView x:Name="lstCameras" ItemsSource="{Binding VisibleCameras}" Margin="-12,-12,-12,24">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="12,12,12,12" Tapped="ItemContent_Tapped">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Thumbnail}" Stretch="UniformToFill" HorizontalAlignment="Center" Width="75" Margin="0,0,12,0" />
-                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Camera.title}" FontSize="24"  FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Camera.location}" FontSize="18" FontWeight="Normal" Foreground="#FF000000" Margin="0,0,0,6" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                <Image Grid.Column="0" Grid.RowSpan="2" Source="{Binding Thumbnail}" Stretch="UniformToFill" HorizontalAlignment="Center" Width="150" Margin="0,0,24,0" />
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Camera.title}" FontSize="36"  FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Camera.location}" FontSize="24" FontWeight="Normal" Foreground="#FF000000" Margin="0,0,0,6" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <RichTextBlock FontSize="18" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
-                <Paragraph LineHeight="24">
-                    Looking for more activity?
-                    <Hyperlink NavigateUri="https://www.dropcam.com/live-demos" Foreground="#FF00B0ED">Subscribe to a public Dropcam feed.</Hyperlink>
-                </Paragraph>
-            </RichTextBlock>
-        </StackPanel>
+                <RichTextBlock FontSize="24" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
+                    <Paragraph LineHeight="24">
+                        Looking for more activity?
+                        <Hyperlink NavigateUri="https://www.dropcam.com/live-demos" Foreground="#FF00B0ED">Subscribe to a public Dropcam feed.</Hyperlink>
+                    </Paragraph>
+                </RichTextBlock>
+            </StackPanel>
 
-        <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnRefresh" Grid.Column="0" Grid.ColumnSpan="2" Content="Refresh" FontSize="18" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnRefresh_Click" />
+                <Button x:Name="btnRefresh" Grid.Column="0" Grid.ColumnSpan="2" Content="Refresh" FontSize="24" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnRefresh_Click" />
+            </Grid>
+
         </Grid>
-
     </Grid>
 </Page>

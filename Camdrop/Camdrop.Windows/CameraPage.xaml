@@ -7,15 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid x:Name="LayoutRoot" Margin="0,0,0,0" Background="#FF000000">
+    <Grid Background="#FF000000">
+        <Grid x:Name="LayoutRoot" Margin="0,0,0,0" Background="#FF000000">
 
-        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+            <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
 
-        <Image x:Name="imgCameraFeed" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+            <StackPanel x:Name="stkCamera" VerticalAlignment="Top">
+                <Image x:Name="imgCameraFeed" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" />
+                <StackPanel x:Name="txtTimestampBanner" Background="#88000000" VerticalAlignment="Bottom" Margin="0,-84,0,0">
+                    <TextBlock x:Name="txtTimestamp" FontSize="48" Foreground="#FF00B0ED" HorizontalAlignment="Center" Margin="12,12,12,12" />
+                </StackPanel>
+            </StackPanel>
 
-        <StackPanel Background="#88000000" VerticalAlignment="Bottom" Margin="0,0,0,0">
-            <TextBlock x:Name="txtTimestamp" FontSize="18" Foreground="#FF00B0ED" HorizontalAlignment="Center" Margin="5,5,5,5" />
-        </StackPanel>
+            <Grid Margin="63,66,63,56" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
+                <Button x:Name="btnBack" Grid.Column="0" Grid.ColumnSpan="2" Content="Back" FontSize="24" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnBack_Click" />
+            </Grid>
+
+        </Grid>
     </Grid>
 </Page>
+
