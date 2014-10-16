@@ -20,7 +20,9 @@ namespace Camdrop
 
             this.SizeChanged += Frame_SizeChanged;
 
+#if WINDOWS_PHONE_APP
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
+#endif
         }
 
         private void Frame_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -22,7 +22,9 @@ namespace Camdrop
         {
             this.InitializeComponent();
 
+#if WINDOWS_PHONE_APP
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
+#endif
 
             VisibleCameras = new ObservableCollection<CameraItem>();
         }

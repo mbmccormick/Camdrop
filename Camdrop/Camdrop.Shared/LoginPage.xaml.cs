@@ -16,7 +16,9 @@ namespace Camdrop
         {
             this.InitializeComponent();
 
+#if WINDOWS_PHONE_APP
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
+#endif
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
