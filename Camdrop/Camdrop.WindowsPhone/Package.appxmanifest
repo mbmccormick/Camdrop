@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="2caadf19-0909-475c-8788-2af5d257d70e" Publisher="CN=mattmc" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="2caadf19-0909-475c-8788-2af5d257d70e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="9799MattMcCormick.Camdrop" Publisher="CN=C6F6E569-3D6B-467C-ACB2-38BF1E5BE1A1" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="db490556-2312-4ade-b5ce-b80c7e380383" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Camdrop</DisplayName>
     <PublisherDisplayName>Matt McCormick</PublisherDisplayName>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="46a9d50f-7d07-4a50-8c7c-54a9437f1b5e" Publisher="CN=mattmc" Version="1.0.0.0" />
+  <Identity Name="9799MattMcCormick.Camdrop" Publisher="CN=C6F6E569-3D6B-467C-ACB2-38BF1E5BE1A1" Version="1.1.0.3" />
   <Properties>
-    <DisplayName>Camdrop.Windows</DisplayName>
+    <DisplayName>Camdrop</DisplayName>
     <PublisherDisplayName>Matt McCormick</PublisherDisplayName>
     <Logo>Assets\storelogo.png</Logo>
   </Properties>
@@ -24,7 +24,7 @@
           </m2:ShowNameOnTiles>
         </m2:DefaultTile>
         <m2:SplashScreen Image="Assets\splashscreen.png" BackgroundColor="#00B0ED" />
-        <m2:ApplicationView MinWidth="width320" />
+        <m2:ApplicationView MinWidth="width500" />
         <m2:InitialRotationPreference>
           <m2:Rotation Preference="portrait" />
           <m2:Rotation Preference="landscape" />
