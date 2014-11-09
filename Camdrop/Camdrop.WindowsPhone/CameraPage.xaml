@@ -11,14 +11,21 @@
 
     <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
 
-        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <ProgressBar x:Name="prgStatusBar" Background="#FF00B0ED" VerticalAlignment="Top" IsIndeterminate="True" />
 
         <StackPanel x:Name="stkCamera" VerticalAlignment="Top">
-            <Image x:Name="imgCameraFeed" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" />
+            <Image x:Name="imgCameraFeed" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" />
             <StackPanel x:Name="txtTimestampBanner" Background="#88000000" VerticalAlignment="Bottom" Margin="0,-84,0,0">
-                <TextBlock x:Name="txtTimestamp" FontSize="48" Foreground="#FF00B0ED" HorizontalAlignment="Center" Margin="12,12,12,12" />
+                <TextBlock x:Name="txtTimestamp" FontSize="24" Foreground="#FF00B0ED" HorizontalAlignment="Center" Margin="12,12,12,12" />
             </StackPanel>
         </StackPanel>
 
     </Grid>
+
 </Page>

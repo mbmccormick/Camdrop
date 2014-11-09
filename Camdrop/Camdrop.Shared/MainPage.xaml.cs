@@ -6,6 +6,7 @@ using Windows.Graphics.Display;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -36,8 +37,17 @@ namespace Camdrop
             LoadData();
         }
 
-        private void RenderStatusBar()
+        private async void RenderStatusBar()
         {
+#if WINDOWS_PHONE_APP
+            var statusBar = StatusBar.GetForCurrentView();
+            statusBar.ForegroundColor = Color.FromArgb(255, 0, 0, 0);
+            statusBar.BackgroundColor = Color.FromArgb(255, 0, 176, 237);
+            statusBar.BackgroundOpacity = 1.0;
+
+            await statusBar.ShowAsync();
+#endif
+
             this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 

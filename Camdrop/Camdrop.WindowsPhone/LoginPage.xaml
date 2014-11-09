@@ -8,20 +8,34 @@
     mc:Ignorable="d"
     Background="#FFFFFFFF">
 
-    <Grid x:Name="LayoutRoot" Margin="22,22,22,12">
+    <Grid x:Name="LayoutRoot">
 
-        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
 
-        <StackPanel>
-            <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="Login to your Dropcam account" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
+        <ProgressBar x:Name="prgStatusBar" Background="#FF00B0ED" VerticalAlignment="Top" IsIndeterminate="True" />
+
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="CAMDROP" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="login" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <TextBlock Text="Login to your Dropcam account:" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,0,0,30" />
 
             <TextBlock Text="Username" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-            <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
-
+            <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleExtraLargeFontSize}" PlaceholderText=" " FontFamily="{StaticResource PhoneFontFamilyNormal}" Margin="0,0,0,24" Padding="3,3,6,6" />
+            
             <TextBlock Text="Password" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
-            <PasswordBox x:Name="txtPassword" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,36" />
+            <PasswordBox x:Name="txtPassword" FontSize="{StaticResource TextStyleExtraLargeFontSize}" PlaceholderText=" " FontFamily="{StaticResource PhoneFontFamilyNormal}" Margin="0,0,0,36" Padding="3,3,6,6" />
 
             <RichTextBlock FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FFAAAAAA" TextWrapping="Wrap" Margin="0,0,0,24">
                 <Paragraph LineHeight="24">
@@ -38,15 +52,13 @@
             </RichTextBlock>
         </StackPanel>
         
-        <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button x:Name="btnLogin" Grid.Column="0" Content="Login" FontSize="{StaticResource TextStyleLargeFontSize}" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnLogin_Click" />
-            <Button x:Name="btnClear" Grid.Column="1" Content="Clear" FontSize="{StaticResource TextStyleLargeFontSize}" Foreground="#FFFFFFFF" Background="#FFCCCCCC" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnClear_Click" />
-        </Grid>
-        
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar Background="#FF00B0ED">
+            <AppBarButton x:Name="btnLogin" Icon="Accept" Label="login" Click="btnLogin_Click" />
+            <AppBarButton x:Name="btnClear" Icon="Clear" Label="clear" Click="btnClear_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    
 </Page>

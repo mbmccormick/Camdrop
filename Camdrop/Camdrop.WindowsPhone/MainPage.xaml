@@ -9,14 +9,28 @@
     Background="#FFFFFFFF"
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid x:Name="LayoutRoot" Margin="22,22,22,12" VerticalAlignment="Stretch">
+    <Grid x:Name="LayoutRoot">
 
-        <ProgressBar x:Name="prgStatusBar" IsIndeterminate="True" />
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
 
-        <StackPanel>
-            <TextBlock Text="Camdrop" FontSize="{StaticResource TextStyleExtraExtraLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,0" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="Select a camera from the list below" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,12,0,48" />
+        <ProgressBar x:Name="prgStatusBar" Background="#FF00B0ED" VerticalAlignment="Top" IsIndeterminate="True" />
+
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="CAMDROP" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="dashboard" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <TextBlock Text="Select a camera from the list below:" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,0,0,48" />
 
             <ListView x:Name="lstCameras" ItemsSource="{Binding VisibleCameras}" Margin="0,0,0,36">
                 <ListView.ItemTemplate>
@@ -48,14 +62,12 @@
             </RichTextBlock>
         </StackPanel>
 
-        <Grid Margin="-3,0,-3,0" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Button x:Name="btnRefresh" Grid.Column="0" Grid.ColumnSpan="2" Content="Refresh" FontSize="{StaticResource TextStyleLargeFontSize}" Foreground="#FFFFFFFF" Background="#FF00B0ED" HorizontalAlignment="Stretch" Height="75" Margin="0,0,0,0" Click="btnRefresh_Click" />
-        </Grid>
-
     </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar Background="#FF00B0ED">
+            <AppBarButton x:Name="btnRefresh" Icon="Sync" Label="refresh" Click="btnRefresh_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    
 </Page>

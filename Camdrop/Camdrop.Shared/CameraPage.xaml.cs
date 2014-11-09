@@ -3,6 +3,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Graphics.Display;
 using Windows.Storage.Streams;
 using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -56,8 +57,14 @@ namespace Camdrop
             LoadData();
         }
 
-        private void RenderStatusBar()
+        private async void RenderStatusBar()
         {
+#if WINDOWS_PHONE_APP
+            var statusBar = StatusBar.GetForCurrentView();
+
+            await statusBar.HideAsync();
+#endif
+
             this.prgStatusBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
@@ -91,7 +98,7 @@ namespace Camdrop
                     HideStatusBar();
 
                     var stream = new InMemoryRandomAccessStream();
-                    
+
                     await stream.WriteAsync(result.AsBuffer());
 
                     stream.Seek(0);
