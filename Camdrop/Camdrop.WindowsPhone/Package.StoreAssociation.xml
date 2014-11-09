@@ -189,9 +189,6 @@
       <ReservedName>Camdrop</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames>
-    <MainPackageIdentityName>9799MattMcCormick.SendToReader</MainPackageIdentityName>
-  </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=ada41b87-f796-4cb7-b548-a19c90fb1009">
     <PackageInfo>
       <OsMinVersion>6.3.0.0</OsMinVersion>
