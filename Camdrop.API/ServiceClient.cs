@@ -12,18 +12,20 @@ namespace Camdrop.API
 {
     public class ServiceClient
     {
-        private string ServerAddress;
+        private string PrimaryServerAddress;
+        private string SecondaryServerAddress;
         private Session CurrentSession;
 
         public ServiceClient()
         {
-            ServerAddress = "www.dropcam.com";
+            PrimaryServerAddress = "www.dropcam.com";
+            SecondaryServerAddress = "nexusapi.dropcam.com";
             CurrentSession = null;
         }
 
         public async Task LoginLogin(Action<LoginLoginResponse> callback, string username, string password)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/login.login?username=" + username + "&password=" + password) as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("https://" + PrimaryServerAddress + "/api/login.login?username=" + username + "&password=" + password) as HttpWebRequest;
 
             var response = await request.GetResponseAsync().ConfigureAwait(false);
 
@@ -47,7 +49,7 @@ namespace Camdrop.API
 
         public async Task UsersGetCurrent(Action<UsersGetCurrentResponse> callback)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/users.get_current") as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("https://" + PrimaryServerAddress + "/api/users.get_current") as HttpWebRequest;
             request.Headers["Cookie"] = "website_2=" + CurrentSession.session_token;
 
             var response = await request.GetResponseAsync().ConfigureAwait(false);
@@ -69,7 +71,7 @@ namespace Camdrop.API
 
         public async Task CamerasGetVisible(Action<CamerasGetVisibleResponse> callback)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/cameras.get_visible") as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("https://" + PrimaryServerAddress + "/api/cameras.get_visible") as HttpWebRequest;
             request.Headers["Cookie"] = "website_2=" + CurrentSession.session_token;
 
             var response = await request.GetResponseAsync().ConfigureAwait(false);
@@ -91,7 +93,7 @@ namespace Camdrop.API
 
         public async Task CamerasGetDemo(Action<CamerasGetVisibleResponse> callback)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/cameras.get_demo") as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("https://" + PrimaryServerAddress + "/api/cameras.get_demo") as HttpWebRequest;
             request.Headers["Cookie"] = "website_2=" + CurrentSession.session_token;
 
             var response = await request.GetResponseAsync().ConfigureAwait(false);
@@ -118,7 +120,7 @@ namespace Camdrop.API
 
         public async Task CamerasGetImage(Action<byte[]> callback, string uuid, int width)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + ServerAddress + "/api/cameras.get_image?uuid=" + uuid + "&width=" + width + "&ticks=" + DateTime.Now.Ticks) as HttpWebRequest;
+            HttpWebRequest request = HttpWebRequest.Create("https://" + SecondaryServerAddress + "/get_image?uuid=" + uuid + "&width=" + width + "&ticks=" + DateTime.Now.Ticks) as HttpWebRequest;
             request.Headers["Cookie"] = "website_2=" + CurrentSession.session_token;
 
             var response = await request.GetResponseAsync().ConfigureAwait(false);
