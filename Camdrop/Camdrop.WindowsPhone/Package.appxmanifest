@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="9799MattMcCormick.Camdrop" Publisher="CN=C6F6E569-3D6B-467C-ACB2-38BF1E5BE1A1" Version="1.2.0.1" />
+  <Identity Name="9799MattMcCormick.Camdrop" Publisher="CN=C6F6E569-3D6B-467C-ACB2-38BF1E5BE1A1" Version="1.4.0.1" />
   <mp:PhoneIdentity PhoneProductId="0c193841-ec24-49fb-b6ce-7a1f86585855" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Camdrop</DisplayName>
