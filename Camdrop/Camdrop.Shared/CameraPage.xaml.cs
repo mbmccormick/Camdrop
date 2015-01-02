@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Camdrop.API;
 using Windows.Graphics.Display;
 using Windows.Storage.Streams;
 using Windows.UI;
@@ -13,7 +14,7 @@ namespace Camdrop
 {
     public sealed partial class CameraPage : Page
     {
-        public string UUID;
+        public Camera CurrentCamera;
 
         public CameraPage()
         {
@@ -50,7 +51,7 @@ namespace Camdrop
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            UUID = e.Parameter as string;
+            CurrentCamera = e.Parameter as Camera;
 
             RenderStatusBar();
 
@@ -109,9 +110,9 @@ namespace Camdrop
                     stream.Dispose();
 
                     this.imgCameraFeed.Source = image;
-                    this.txtTimestamp.Text = DateTime.Now.ToString();
+                    this.txtTimestamp.Text = DateTime.UtcNow.AddSeconds(CurrentCamera.timezone_utc_offset).ToString();
                 });
-            }, UUID, 1280);
+            }, CurrentCamera.uuid, 1280);
 
             HideStatusBar();
         }

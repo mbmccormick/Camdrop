@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="9799MattMcCormick.Camdrop" Publisher="CN=C6F6E569-3D6B-467C-ACB2-38BF1E5BE1A1" Version="1.1.0.4" />
+  <Identity Name="9799MattMcCormick.Camdrop" Publisher="CN=C6F6E569-3D6B-467C-ACB2-38BF1E5BE1A1" Version="1.4.1.0" />
   <Properties>
     <DisplayName>Camdrop</DisplayName>
     <PublisherDisplayName>Matt McCormick</PublisherDisplayName>

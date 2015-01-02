@@ -8,6 +8,7 @@ namespace Camdrop.API
 {
     public class Camera
     {
+        public string talkback_stream_host { get; set; }
         public bool is_streaming_enabled { get; set; }
         public string timezone { get; set; }
         public int id { get; set; }
@@ -26,13 +27,14 @@ namespace Camdrop.API
         public string owner_id { get; set; }
         public string last_local_ip { get; set; }
         public bool is_streaming { get; set; }
-        public int timezone_utc_offset { get; set; }
+        public double timezone_utc_offset { get; set; }
         public bool is_online { get; set; }
         public bool is_public { get; set; }
         public string download_host { get; set; }
-        public object nest_structure_id { get; set; }
-        public string public_token { get; set; }
-        public double hours_of_recording_max { get; set; }
+        public string name { get; set; }
         public bool is_connected { get; set; }
+        public string nexus_api_http_server { get; set; }
+        public double hours_of_recording_max { get; set; }
+        public string where { get; set; }
     }
 }

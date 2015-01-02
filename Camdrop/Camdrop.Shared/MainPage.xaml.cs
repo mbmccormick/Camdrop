@@ -126,7 +126,7 @@ namespace Camdrop
         {
             CameraItem item = ((FrameworkElement)sender).DataContext as CameraItem;
 
-            Frame.Navigate(typeof(CameraPage), item.Camera.uuid);
+            Frame.Navigate(typeof(CameraPage), item.Camera);
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
