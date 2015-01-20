@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Camdrop.API;
+using Windows.ApplicationModel;
 using Windows.Graphics.Display;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Popups;
@@ -85,26 +88,43 @@ namespace Camdrop
                             CameraItem viewModel = new CameraItem();
                             viewModel.Camera = item;
 
-                            await App.DropcamClient.CamerasGetImage(async (result2) =>
+                            if (item.is_streaming_enabled == true)
                             {
-                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                                await App.DropcamClient.CamerasGetImage(async (result2) =>
                                 {
-                                    HideStatusBar();
+                                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                                    {
+                                        HideStatusBar();
 
-                                    var stream = new InMemoryRandomAccessStream();
+                                        var stream = new InMemoryRandomAccessStream();
 
-                                    await stream.WriteAsync(result2.AsBuffer());
+                                        await stream.WriteAsync(result2.AsBuffer());
 
-                                    stream.Seek(0);
+                                        stream.Seek(0);
 
-                                    var image = new BitmapImage();
-                                    image.SetSource(stream);
+                                        var image = new BitmapImage();
+                                        image.SetSource(stream);
 
-                                    stream.Dispose();
+                                        stream.Dispose();
 
-                                    viewModel.Thumbnail = image;
-                                });
-                            }, item.uuid, 150);
+                                        viewModel.Thumbnail = image;
+                                    });
+                                }, item.uuid, 150);
+                            }
+                            else
+                            {
+                                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(Package.Current.InstalledLocation.Path);
+                                Stream stream = await folder.OpenStreamForReadAsync("DropcamOffline.png");
+
+                                //var memStream = new MemoryStream();
+                                //stream.CopyTo(memStream);
+                                //memStream.Position = 0;
+
+                                var image = new BitmapImage();
+                                image.SetSource(stream.AsRandomAccessStream());
+
+                                viewModel.Thumbnail = image;
+                            }
 
                             VisibleCameras.Add(viewModel);
                         }
@@ -126,7 +146,10 @@ namespace Camdrop
         {
             CameraItem item = ((FrameworkElement)sender).DataContext as CameraItem;
 
-            Frame.Navigate(typeof(CameraPage), item.Camera);
+            if (item.Camera.is_streaming_enabled == true)
+            {
+                Frame.Navigate(typeof(CameraPage), item.Camera);
+            }
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
