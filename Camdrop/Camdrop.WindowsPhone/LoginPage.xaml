@@ -31,7 +31,7 @@
         <StackPanel Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <TextBlock Text="Login to your Dropcam account:" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="#FF000000" Margin="0,0,0,30" />
 
-            <TextBlock Text="Username" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+            <TextBlock Text="Email Address" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
             <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="{StaticResource TextStyleExtraLargeFontSize}" PlaceholderText=" " FontFamily="{StaticResource PhoneFontFamilyNormal}" Margin="0,0,0,24" Padding="3,3,6,6" />
             
             <TextBlock Text="Password" FontSize="{StaticResource TextStyleLargeFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />

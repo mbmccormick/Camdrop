@@ -17,7 +17,7 @@
 
                 <TextBlock Text="Login to your Dropcam account" FontSize="24" Foreground="#FF000000" Margin="0,24,0,60" />
 
-                <TextBlock Text="Username" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
+                <TextBlock Text="Email Address" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />
                 <TextBox x:Name="txtUsername" InputScope="EmailSmtpAddress" FontSize="24" Foreground="#FF000000" BorderBrush="#FFCCCCCC" Margin="0,0,0,24" />
 
                 <TextBlock Text="Password" FontSize="24" FontWeight="SemiBold" Foreground="#FF000000" Margin="0,0,0,6" />

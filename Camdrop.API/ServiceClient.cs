@@ -6,7 +6,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
+using Windows.Web.Http.Headers;
 
 namespace Camdrop.API
 {
@@ -25,26 +29,52 @@ namespace Camdrop.API
 
         public async Task LoginLogin(Action<LoginLoginResponse> callback, string username, string password)
         {
-            HttpWebRequest request = HttpWebRequest.Create("https://" + PrimaryServerAddress + "/api/login.login?username=" + username + "&password=" + password) as HttpWebRequest;
+            HttpBaseProtocolFilter filter = new HttpBaseProtocolFilter();
+            filter.AllowAutoRedirect = false;
 
-            var response = await request.GetResponseAsync().ConfigureAwait(false);
+            HttpClient client = new HttpClient(filter);
 
-            Stream stream = response.GetResponseStream();
-            UTF8Encoding encoding = new UTF8Encoding();
-            StreamReader sr = new StreamReader(stream, encoding);
+            client.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue("*/*"));
+            client.DefaultRequestHeaders.AcceptEncoding.Add(new HttpContentCodingWithQualityHeaderValue("gzip, deflate"));
+            client.DefaultRequestHeaders.Referer = new Uri("https://www.dropcam.com/");
+            client.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("camdrop/1.0"));
+            
+            HttpStringContent content = new HttpStringContent(String.Format("password={0}&username={1}", WebUtility.UrlEncode(password), WebUtility.UrlEncode(username)), Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/x-www-form-urlencoded");
+                        
+            LoginLoginResponse data = new LoginLoginResponse();
 
-            JsonTextReader tr = new JsonTextReader(sr);
-            LoginLoginResponse data = new JsonSerializer().Deserialize<LoginLoginResponse>(tr);
+            try
+            {
+                var response = await client.PostAsync(new Uri("https://" + PrimaryServerAddress + "/login/submit"), content);
 
-            tr.Close();
-            sr.Dispose();
+                if (response.Headers.Location.AbsolutePath != "/watch")
+                {
+                    data.status = 1;
+                    data.status_description = "Login Failed";
+                    data.status_detail = "The credentials you provided were not valid. Please check your Email Address and Password and try again.";
+                }
+                else
+                {
+                    string[] cookies = response.Headers["Set-Cookie"].Split(';');
 
-            stream.Dispose();
+                    CurrentSession = new Session();
+                    CurrentSession.session_token = cookies[0].Split('=')[1].Trim();
 
-            if (data.status == 0)
-                CurrentSession = data.items[0];
+                    data.status = 0;
+                    data.status_description = "Login Succeeded";
+                    data.status_detail = "Your credentials were valid and your session is now authorized.";
+                }
 
-            callback(data);
+                callback(data);
+            }
+            catch (Exception ex)
+            {
+                data.status = 2;
+                data.status_description = "Service Unavailable";
+                data.status_detail = "The Dropcam service is not available at this time. Please try again later.";
+
+                callback(data);
+            }
         }
 
         public async Task UsersGetCurrent(Action<UsersGetCurrentResponse> callback)
@@ -131,7 +161,7 @@ namespace Camdrop.API
 
             int length = Convert.ToInt32(response.ContentLength);
             byte[] data = br.ReadBytes(length);
-                
+
             br.Dispose();
 
             stream.Dispose();
